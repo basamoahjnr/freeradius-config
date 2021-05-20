@@ -17,6 +17,7 @@ sql  {
 	usergroup_table = "radusergroup"
 	read_groups = yes
 	delete_stale_sessions = yes
+	sqltrace = yes
 	logfile = ${logdir}/sqltrace.sql
 	read_clients = yes
 	client_table = "nas"

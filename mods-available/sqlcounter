@@ -40,7 +40,7 @@
 #
 sqlcounter dailycounter {
 	sql_module_instance = sql
-	dialect = ${modules.sql.dialect}
+	dialect = mysql
 
 	counter_name = Daily-Session-Time
 	check_name = Max-Daily-Session
@@ -52,9 +52,24 @@ sqlcounter dailycounter {
 	$INCLUDE ${modconfdir}/sql/counter/${dialect}/${.:instance}.conf
 }
 
+
+#sqlcounter weeklycounter {
+#	sql_module_instance = sql
+#	dialect = mysql
+#
+#	counter_name = Weekly-Session-Time
+#	check_name = Max-Weekly-Session
+#	reply_name = Session-Timeout
+#	key = User-Name
+#	reset = weekly
+#
+#	$INCLUDE ${modconfdir}/sql/counter/${dialect}/${.:instance}.conf
+#}
+
+
 sqlcounter monthlycounter {
 	sql_module_instance = sql
-	dialect = ${modules.sql.dialect}
+	dialect = mysql
 
 	counter_name = Monthly-Session-Time
 	check_name = Max-Monthly-Session
@@ -67,7 +82,7 @@ sqlcounter monthlycounter {
 
 sqlcounter noresetcounter {
 	sql_module_instance = sql
-	dialect = ${modules.sql.dialect}
+	dialect = mysql
 
 	counter_name = Max-All-Session-Time
 	check_name = Max-All-Session
@@ -84,7 +99,7 @@ sqlcounter noresetcounter {
 #  attribute.
 sqlcounter expire_on_login {
 	sql_module_instance = sql
-	dialect = ${modules.sql.dialect}
+	dialect = mysql
 
 	counter_name = Expire-After-Initial-Login
 	check_name = Expire-After
@@ -92,4 +107,45 @@ sqlcounter expire_on_login {
 	reset = never
 
 	$INCLUDE ${modconfdir}/sql/counter/${dialect}/${.:instance}.conf
+}
+
+
+sqlcounter accessperiod {
+	sql_module_instance = sql	
+  	dialect = mysql
+
+	counter_name = Max-Access-Period-Never
+	check_name = Access-Period
+	key = User-Name
+	reset = never
+
+	$INCLUDE ${modconfdir}/sql/counter/${dialect}/${.:instance}.conf
+}
+
+
+sqlcounter monthlylimit {
+	sql_module_instance = sql
+	dialect = mysql
+
+	counter_name = Max-Total-Bandwith
+	check_name = Monthly-Bandwidth
+	key = User-Name
+	reset = monthly
+
+	$INCLUDE ${modconfdir}/sql/counter/${dialect}/${.:instance}.conf
+}
+	
+
+sqlcounter quotalimit {
+	sql_module_instance = sql
+	dialect = mysql
+
+	counter_name = Max-Volume
+	check_name = Max-Data
+	reply_name = Mikrotik-Total-Limit
+	key = User-Name
+	reset = never
+
+	$INCLUDE ${modconfdir}/sql/counter/${dialect}/${.:instance}.conf
+
 }
